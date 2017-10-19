@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Ask Me Anything! Review Session Edition</title>
 
+  <link href="favicon.ico" rel="icon" type="image/x-icon" />
+
   <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
@@ -86,6 +88,8 @@
 
 
   <script>
+
+
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyAHPbN9kjNc-hZOwTw0NvrdxIO04okQJgo",
@@ -136,7 +140,7 @@
     $(document).on("click", ".completed", function(event){
 
     $(this).attr({class:"btn btn-success success"});
-    $(".success").html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>");
+    $(".success").html("&#x2713;");
 
     })
 
