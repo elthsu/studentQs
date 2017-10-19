@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ask Me Anything! Review Session Edition</title>
+
+  <!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://www.gstatic.com/firebasejs/4.5.2/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<div class="jumbotron">
+				<h1>Ask Me Anything!</h1>
+				<h3>Review Session Edition</h3></div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<div class="panel panel-default panel-warning">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">Current Questions</h3>
+  					</div>
+
+  					<div class="panel-body">
+    				<table class="table questionTable">
+    					<tbody id="tableContent">
+    					</tbody>
+
+
+  					</table>
+  					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<div class="panel panel-default panel-warning">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">Ask a question</h3>
+  					</div>
+
+  					<div class="panel-body">
+
+					<form>
+
+            <textarea class="form-control boxes" rows="3" id="question"></textarea>
+
+            <br />
+
+						<input id="submit" type="submit">
+
+					</form>
+
+
+
+  					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAHPbN9kjNc-hZOwTw0NvrdxIO04okQJgo",
+      authDomain: "ama-review-session.firebaseapp.com",
+      databaseURL: "https://ama-review-session.firebaseio.com",
+      projectId: "ama-review-session",
+      storageBucket: "",
+      messagingSenderId: "58936333553"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    database.ref().on("child_added", function(snapshot){
+
+
+      var questionDisplay = snapshot.val().question;
+      var valueDisplay = snapshot.val().value;
+
+      var input = $("<tr>");
+
+      var temp = input.append("<td>" + questionDisplay + "<button type='button' class='btn btn-danger completed' value="+ valueDisplay +">Done</button></td>");
+
+
+      $("#tableContent").append(temp);
+      })
+
+      var value = 0;
+
+      $("#submit").on("click", function(event){
+      event.preventDefault();
+
+      value++;
+      var question = $("#question").val().trim();
+
+      database.ref().push({
+
+        question: question,
+        value: value
+
+      });
+
+
+      $(".boxes").val("");
+
+    });
+
+    $(document).on("click", ".completed", function(event){
+
+    $(this).attr({class:"btn btn-success success"});
+    $(".success").html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>");
+
+    })
+
+  </script>
+
+
+
+</body>
+</html>
